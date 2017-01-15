@@ -36,6 +36,8 @@ counter fuelHighTeleop;
 
 checkBoxGroup rankingPoints;
 checkBoxGroup rating;
+checkBoxGroup defenseRating;
+checkBoxGroup offenseRating;
 
 checkBox disabled;
 checkBox potf;
@@ -68,7 +70,7 @@ void setup () {
   matchNumber = new textBox(10, 50, 180, 30, 200, 200, 200, 0, 0, 0, "Match Number: ", false);
   teamNumber = new textBox(10, 80, 180, 30, 200, 200, 200, 0, 0, 0, "Team Number: ", false);
   teamMember = new textBox(10, 110, 240, 30, 200, 200, 200, 0, 0, 0, "Scout  Name: ", false);
-  matchNotes = new textBox(300, 280, 480, 120, 200, 200, 200, 0, 0, 0, "Match Notes: ", false);
+  matchNotes = new textBox(550, 100, 400, 200, 200, 200, 200, 0, 0, 0, "Match Notes: \n", false);
   end = new textBox(915, 550, 100, 40, 30, 255, 30, 0, 0, 0, "End Match", false);
   times = new textBox(900, 10, 95, 30, 200, 200, 200, 0, 0, 0, "Time: ", false);
   startMatchButton = new textBox(900, 40, 95, 30, 200, 200, 200, 0, 0, 0, "Start Match", false);
@@ -91,6 +93,9 @@ void setup () {
   
   rankingPoints = new checkBoxGroup(485,505,200,200,200,4,-1);
   rating = new checkBoxGroup(825,505,200,200,200,5,-1);
+  defenseRating =  new checkBoxGroup(825,450,200,200,200,5,-1);
+  offenseRating =  new checkBoxGroup(825,395,200,200,200,5,-1);
+  
 }
 
 void mousePressed() {  
@@ -111,6 +116,14 @@ void mousePressed() {
   if (matchNumber.checkMPos() == false) {
     matchNumber.updateColor(200, 200, 200);
   }
+  if (matchNotes.checkMPos() == true) {
+    matchNotes.updateColor(220,220,220);
+    activeBox = "matchNotes";
+  }
+  if (matchNotes.checkMPos() == false) {
+    matchNotes.updateColor(200, 200, 200);
+    activeBox = "";
+  }
   if (teamNumber.checkMPos() == true) {
     teamNumber.updateColor(220, 220, 220);
     activeBox = "teamNumber";
@@ -130,9 +143,12 @@ void mousePressed() {
     matchNotesOut = matchNotes.input;
     dump.outputToFile();
     activeBox = "end";
+    run = false;
+    startMatchButton.updateColor(200,200,200);
   }
   if (end.checkMPos() == false) {
     end.updateColor(30, 200, 30);
+    
   }
   gearsAuto.mousePressed();
   gearsTeleop.mousePressed();
@@ -148,6 +164,8 @@ void mousePressed() {
   flippedOver.mousePressed();
   attemptedRope.mousePressed();
   successfulRope.mousePressed();
+  defenseRating.mousePressed();
+  offenseRating.mousePressed();
   //Points.checkMPos();
   //if (Points.selectedBox == 1) {
   //  if (Points.start>9) {
@@ -206,7 +224,9 @@ void draw() {
   text("Match Scouting 2017!", 20, 35);
   text("Alliance (Blue/Red)", 705, 30);
   
-  text("Gears", 10, 200);
+  text("-10  -1              +1  +10        -10  -1              +1  +10", 100, 175);
+  
+  text("# of Gears", 10, 200);
   text("Fuel High", 10, 230);
   text("Fuel Low",10, 260);
   
@@ -222,13 +242,22 @@ void draw() {
   text("Ending Alliance Points:",10,520);
   text("Ranking Points:", 365,520);
   text("Overall Performance Rating:", 620, 520);
+  text("Defense Rating:", 705, 465);
+  text("Offense Rating:", 710, 410);
+  
+  textSize(15);
+  text("1     2     3     4",490,500);
+  text("1     2     3     4      5", 830, 500);
+  text("1     2     3     4      5", 830, 445);
+  text("1     2     3     4      5", 830, 390);
+  textSize(16);
   //Body
   //text("Match Number: " + matchNum,10, 70);
   //text("Team Number: "+ teamNum,10,90);
   matchNumber.draw();
   teamNumber.draw();
   teamMember.draw();
-  //matchNotes.draw();
+  matchNotes.draw();
   alliance.draw();
   end.draw();
   timer();
@@ -254,6 +283,8 @@ void draw() {
   
   rankingPoints.draw();
   rating.draw();
+  defenseRating.draw();
+  offenseRating.draw();
 }
 
 void keyPressed() {

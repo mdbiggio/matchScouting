@@ -7,6 +7,8 @@ public class textBox {
  String input = "";
  boolean activated;
  float[] boxCs = {0,0,0,0};
+ private static final int kENTER = 10;
+ private static final int kBACKSPACE = 8;
  
  // Constructors
  public textBox (float x, float y, float w, float h, int bgR, int bgG, int bgB, int Tr, int Tg, int Tb, String start,boolean activated) {
@@ -27,25 +29,28 @@ public class textBox {
   this.boxCs[2] = w;
   this.boxCs[3] = h;
   
- }
-  // Methods
+  }
+  // Methods\
+  
+  
   public void update(char k,int kc) {
     int inpLen = 0;
     inpLen = input.length();
-    //println(kc);
-    if(kc==8) {
+    println(kc);
+    if(kc==kBACKSPACE) {
      if(inpLen > 0) {
        input = input.substring(0, inpLen-1);
      }
     } else {input = input + k;}
-    //println(inpLen);
-    if(inpLen==35) {
+    println(inpLen);
+    if(inpLen==35 && kc != kBACKSPACE) { 
      input = input + "\n";
     }
     input = String.valueOf(input);
     println(input);
     //writeText(Input);
   }
+  
   
   public void updateColor(int bgR, int bgG, int bgB) {
     this.bgR = bgR;
