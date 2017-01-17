@@ -10,7 +10,7 @@ public class counter {
   int[] box4Cs = {0,0,0,0};
   int selectedBox = 0;
   
-  
+    
   
   public counter (float x, float y, int bgR, int bgG, int bgB, int Tr, int Tg, int Tb, int start, boolean activated) {
     this.x = x;
@@ -24,22 +24,24 @@ public class counter {
     this.start = start;
     this.activated = activated;
     this.box1Cs[0] = int(x);//println("box1Cs[0]"+this.box1Cs[0]);
-    this.box1Cs[1] = int(y+5);
-    this.box1Cs[2] = int(x+20);
-    this.box1Cs[3] = int(y+25);
-    this.box2Cs[0] = int(x+30);
-    this.box2Cs[1] = int(y+5);
-    this.box2Cs[2] = int(x+50);
-    this.box2Cs[3] = int(y+25);
+    this.box1Cs[1] = int(y+10);
+    this.box1Cs[2] = int(x+40);
+    this.box1Cs[3] = int(y+50);
     
-    this.box3Cs[0] = int(x+110);
-    this.box3Cs[1] = int(y+5);
-    this.box3Cs[2] = int(x+130);
-    this.box3Cs[3] = int(y+25);
-    this.box4Cs[0] = int(x+140);
-    this.box4Cs[1] = int(y+5);
-    this.box4Cs[2] = int(x+160);
-    this.box4Cs[3] = int(y+25);
+    this.box2Cs[0] = int(x+60);
+    this.box2Cs[1] = int(y+10);
+    this.box2Cs[2] = int(x+100);
+    this.box2Cs[3] = int(y+50);
+    
+    this.box3Cs[0] = int(x+200);
+    this.box3Cs[1] = int(y+10);
+    this.box3Cs[2] = int(x+240);
+    this.box3Cs[3] = int(y+50);
+    
+    this.box4Cs[0] = int(x+260);
+    this.box4Cs[1] = int(y+10);
+    this.box4Cs[2] = int(x+300);
+    this.box4Cs[3] = int(y+50);
     //println("0: "+box1Cs[0]+" 1: "+box1Cs[1]+" 2: "+box1Cs[2]+" 3: "+box1Cs[3]);
     //println("0: "+box2Cs[0]+" 1: "+box2Cs[1]+" 2: "+box2Cs[2]+" 3: "+box2Cs[3]);
     //println("0: "+box3Cs[0]+" 1: "+box3Cs[1]+" 2: "+box3Cs[2]+" 3: "+box3Cs[3]);
@@ -48,22 +50,24 @@ public class counter {
   public void draw() {
     fill(bgR, bgG, bgB);
     
-    rect(x,y+5,20,20);//-10
-    rect(x+30,y+5,20,20);//-1
-    rect(x+65,y,30,30);//number
-    rect(x+110,y+5,20,20);//+1
-    rect(x+140,y+5,20,20);//+10
+    rect(box1Cs[0],box1Cs[1],40,40);//-10
+    rect(box2Cs[0],box2Cs[1],40,40);//-1
+    rect(box2Cs[0]+60,y,60,60);//number
+    rect(box3Cs[0],box3Cs[1],40,40);//+1
+    rect(box4Cs[0],box4Cs[1],40,40);//+10
     
     
     fill(Tr,Tg,Tb);
-    text("+",x+115,y+20);
-    text("+",x+145,y+20);
-    text(start, x+70, y+20);
-    text("-", x+7.5, y+20);
-    text("-",x+37.5,y+20);
+    textFont(font,32);
+    text("+",x+210,y+40);
+    text("+",x+270,y+40);
+    text(start, x+130, y+40);
+    text("-", x+10, y+40);
+    text("-",x+70,y+40);
   }
   
   void mousePressed() {
+    //println("checking if a counter was clicked");
     int mX=mouseX;
     int mY=mouseY;
     if(mX>box1Cs[0] && mY>box1Cs[1] && mX<box1Cs[2] && mY<box1Cs[3]) {

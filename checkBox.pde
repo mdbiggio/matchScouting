@@ -3,7 +3,7 @@ public class checkBox {
  int bgR, bgG, bgB;
  float x,y;
  boolean isChecked;
- float[] boxCs = {0,0,20,20};
+ float[] boxCs = {0,0,40,40};
  PImage img = loadImage("checkmark-256.png");
 
  // Constructors
@@ -28,9 +28,9 @@ public class checkBox {
   
   public void draw() {
     fill(bgR, bgG, bgB);
-    rect(x,y,20,20);
+    rect(x,y,40,40);
     if (isChecked) {
-      img.resize(20,20);
+      img.resize(40,40);
       image(img,x,y);
       //println("Image loaded");
     }
@@ -39,10 +39,10 @@ public class checkBox {
     //println("stuff happened");
     int mX=mouseX;
     int mY=mouseY;
-    println(mX+" "+mY);
+    //println(mX+" "+mY);
     //println("checking if a checkbox was clicked");
     if(mX>this.boxCs[0] && mY>this.boxCs[1] && mX<this.boxCs[0]+this.boxCs[2] && mY<this.boxCs[1]+this.boxCs[3]) {
-      println("checkmark clicked");
+      //println("checkmark clicked");
       if (isChecked == true) {isChecked = false;} else {isChecked = true;}
         //println(True);
         //return true;

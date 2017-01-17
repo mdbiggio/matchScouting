@@ -19,9 +19,9 @@ public class checkBoxGroup {
    checkBox thisBox;
    x = x+30;
    //numBoxes = numBoxes + 1;
-   println(numBoxes);
+   //println(numBoxes);
    for (int i = 0; i<=numBoxes; i++) {
-     println(i);
+     //println(i);
      if (i == checkedBox) {
        checked = true;
      } else {
@@ -30,8 +30,8 @@ public class checkBoxGroup {
     
     // Need to set the x,y value of each checkBox
     
-    thisBox = new checkBox(x+(i-1)*30, y, bgR, bgG, bgB, checked);
-    println("Adding 1 checkbox");
+    thisBox = new checkBox(x+(i-1)*60, y, bgR, bgG, bgB, checked);
+    //println("Adding 1 checkbox");
     boxes.add(thisBox);
   }
   
@@ -51,7 +51,7 @@ public class checkBoxGroup {
   void mousePressed() {
     checkBox thisBox;
     for(int i = 0; i<this.numBoxes; i++) {
-      println(i);
+      //println(i);
       thisBox = boxes.get(i);
       boolean checkedBefore = thisBox.isChecked;
       thisBox.mousePressed();

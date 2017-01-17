@@ -1,6 +1,4 @@
 
-int height = 600;
-int width = 1024;
 PrintWriter output;
 PFont font;
 String Input="";
@@ -59,7 +57,7 @@ int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
 
 void setup () {
   // this is where the team number is chosen via search and choose
-  size(1024, 600);
+  size(1920, 1080);
 
   output = createWriter("Entries.txt");
   font = createFont("Arial", 16, true);
@@ -70,31 +68,34 @@ void setup () {
   matchNumber = new textBox(10, 50, 180, 30, 200, 200, 200, 0, 0, 0, "Match Number: ", false);
   teamNumber = new textBox(10, 80, 180, 30, 200, 200, 200, 0, 0, 0, "Team Number: ", false);
   teamMember = new textBox(10, 110, 240, 30, 200, 200, 200, 0, 0, 0, "Scout  Name: ", false);
-  matchNotes = new textBox(550, 100, 400, 200, 200, 200, 200, 0, 0, 0, "Match Notes: \n", false);
-  end = new textBox(915, 550, 100, 40, 30, 255, 30, 0, 0, 0, "End Match", false);
+  matchNotes = new textBox(1500, 100, 400, 200, 200, 200, 200, 0, 0, 0, "Match Notes: \n", false);
+  end = new textBox(1700, 950, 200, 60, 30, 255, 30, 0, 0, 0, "End Match", false);
   times = new textBox(900, 10, 95, 30, 200, 200, 200, 0, 0, 0, "Time: ", false);
   startMatchButton = new textBox(900, 40, 95, 30, 200, 200, 200, 0, 0, 0, "Start Match", false);
   
-  gearsAuto = new counter(100, 180, 200, 200, 200, 0, 0, 0, 0, false);
-  gearsTeleop = new counter(300, 180, 200, 200, 200, 0, 0, 0, 0, false);
+  gearsAuto = new counter(170, 220, 200, 200, 200, 0, 0, 0, 0, false);
+  gearsTeleop = new counter(500, 220, 200, 200, 200, 0, 0, 0, 0, false);
   
-  fuelLowAuto = new counter(100, 210, 200, 200, 200, 0, 0, 0, 0, false);
-  fuelHighAuto = new counter(300, 210, 200, 200, 200, 0, 0, 0, 0, false);
-  fuelLowTeleop = new counter(100, 240, 200, 200, 200, 0, 0, 0, 0, false);
-  fuelHighTeleop = new counter(300, 240, 200, 200, 200, 0, 0, 0, 0, false);
+  fuelLowAuto = new counter(170, 300, 200, 200, 200, 0, 0, 0, 0, false);
+  fuelHighAuto = new counter(170, 380, 200, 200, 200, 0, 0, 0, 0, false);
+  fuelLowTeleop = new counter(500, 300, 200, 200, 200, 0, 0, 0, 0, false);
+  fuelHighTeleop = new counter(500, 380, 200, 200, 200, 0, 0, 0, 0, false);
   
-  Points = new counter(180, 500, 200, 200, 200, 0, 0, 0, 0, false); 
+  Points = new counter(300, 950, 200, 200, 200, 0, 0, 0, 0, false); 
   
-  disabled = new checkBox(80, 300, 200, 200, 200, false);
-  potf = new checkBox(145, 330, 200, 200, 200, false);
-  flippedOver = new checkBox(110, 360, 200, 200, 200, false);
-  attemptedRope = new checkBox(180, 390, 200, 200, 200, false);
-  successfulRope = new checkBox(185, 420, 200, 200, 200, false);
+  disabled = new checkBox(155, 510, 200, 200, 200, false);
+  potf = new checkBox(280, 570, 200, 200, 200, false);
+  flippedOver = new checkBox(210, 630, 200, 200, 200, false);
+  attemptedRope = new checkBox(350, 690, 200, 200, 200, false);
+  successfulRope = new checkBox(360, 750, 200, 200, 200, false);
   
   rankingPoints = new checkBoxGroup(485,505,200,200,200,4,-1);
-  rating = new checkBoxGroup(825,505,200,200,200,5,-1);
-  defenseRating =  new checkBoxGroup(825,450,200,200,200,5,-1);
+  
   offenseRating =  new checkBoxGroup(825,395,200,200,200,5,-1);
+  defenseRating =  new checkBoxGroup(825,450,200,200,200,5,-1);
+  rating = new checkBoxGroup(825,505,200,200,200,5,-1);
+  
+  
   
 }
 
@@ -224,29 +225,34 @@ void draw() {
   text("Match Scouting 2017!", 20, 35);
   text("Alliance (Blue/Red)", 705, 30);
   
-  text("-10  -1              +1  +10        -10  -1              +1  +10", 100, 175);
+  text("-10        -1                             +1        +10", 180, 215);
+  text("-10        -1                             +1        +10", 510, 215);
   
-  text("# of Gears", 10, 200);
-  text("Fuel High", 10, 230);
-  text("Fuel Low",10, 260);
+  textFont(font, 32);
   
-  text("Disabled:", 10, 315);
-  text("Parts on the Field:", 10, 345);
-  text("Flipped Over:", 10, 375);
-  text("Attempted Rope Climb:", 10, 405);
-  text("Successful Rope Climb:", 10, 435);
+  text("Autonomous", 240, 180);
+  text("Teleop", 600, 180);
   
-  text("Autonomous", 130, 160);
-  text("Teleop", 350, 160);
+  text("# of Gears", 10, 260);
+  text("Fuel High", 10, 340);
+  text("Fuel Low",10, 420);
   
-  text("Ending Alliance Points:",10,520);
-  text("Ranking Points:", 365,520);
-  text("Overall Performance Rating:", 620, 520);
-  text("Defense Rating:", 705, 465);
-  text("Offense Rating:", 710, 410);
+  text("Disabled:", 10, 540);
+  text("Parts on the Field:", 10, 600);
+  text("Flipped Over:", 10, 660);
+  text("Attempted Rope Climb:", 10, 720);
+  text("Successful Rope Climb:", 10, 780);
+  
+
+  
+  //text("Ending Alliance Points:",10,520);
+  text("Ranking Points:", 10,850);
+  //text("Overall Performance Rating:", 620, 520);
+  //text("Defense Rating:", 705, 465);
+  //text("Offense Rating:", 710, 410);
   
   textSize(15);
-  text("1     2     3     4",490,500);
+  text("1     2     3     4", 490,500);
   text("1     2     3     4      5", 830, 500);
   text("1     2     3     4      5", 830, 445);
   text("1     2     3     4      5", 830, 390);
@@ -257,9 +263,12 @@ void draw() {
   matchNumber.draw();
   teamNumber.draw();
   teamMember.draw();
+  textFont(font,32);
   matchNotes.draw();
-  alliance.draw();
   end.draw();
+  textFont(font,16);
+  alliance.draw();
+  
   timer();
   times.draw();
   times.start = "Time: "+m+":"+sS;
