@@ -21,7 +21,7 @@ textBox matchNumber;
 textBox teamNumber;
 textBox teamMember;
 textBox alliance;
-textBox end;
+textButton end;
 textBox times;
 textBox startMatchButton;
 
@@ -76,7 +76,7 @@ void setup () {
   teamMember = new textBox(10, 400, 500, 60, 200, 200, 200, 0, 0, 0, "Scout  Name: ", false);
   //page 2
   matchNotes = new textBox(1500, 100, 400, 200, 200, 200, 200, 0, 0, 0, "Match Notes: \n", false);
-  end = new textBox(1700, 950, 200, 60, 30, 255, 30, 0, 0, 0, "End Match", false);
+  end = new textButton(1700, 950, 200, 60, 30, 255, 30, 0, 0, 0, "End Match", false);
   times = new textBox(900, 10, 95, 30, 200, 200, 200, 0, 0, 0, "Time: ", false);
   startMatchButton = new textBox(900, 40, 95, 30, 200, 200, 200, 0, 0, 0, "Start Match", false);
   
@@ -103,7 +103,7 @@ void setup () {
   defenseRating =  new checkBoxGroup(825,450,200,200,200,5,-1);
   rating = new checkBoxGroup(825,505,200,200,200,5,-1);
   pageSelect = new checkBoxGroup(825,100,200,200,200,3,0);
-  nameSelect = new textButtonGroup(200, 200, 200, 200, 200, 5, 5, 0);
+  nameSelect = new textButtonGroup(600, 200, 200, 200, 200, 5, 5, 0);
   
   
 }
@@ -148,17 +148,26 @@ void mousePressed() {
   if (teamMember.checkMPos() == false) {
     teamMember.updateColor(200, 200, 200);
   }
-  if (end.checkMPos() == true) {
+  //if (end.checkMPos() == true) {
+  //  end.updateColor(30, 255, 30);
+  //  matchNotesOut = matchNotes.input;
+  //  dump.outputToFile();
+  //  activeBox = "end";
+  //  run = false;
+  //  startMatchButton.updateColor(200,200,200);
+  //}
+  //if (end.checkMPos() == false) {
+  //  end.updateColor(30, 200, 30);
+    
+  //}
+  end.mousePressed();
+  if(end.activated == true) {
     end.updateColor(30, 255, 30);
     matchNotesOut = matchNotes.input;
     dump.outputToFile();
     activeBox = "end";
     run = false;
     startMatchButton.updateColor(200,200,200);
-  }
-  if (end.checkMPos() == false) {
-    end.updateColor(30, 200, 30);
-    
   }
   gearsAuto.mousePressed();
   gearsTeleop.mousePressed();
@@ -175,46 +184,15 @@ void mousePressed() {
   attemptedRope.mousePressed();
   successfulRope.mousePressed();
   defenseRating.mousePressed();
+  
   offenseRating.mousePressed();
   
   pageSelect.mousePressed();
   page = pageSelect.checkedBox+1;
   println(page);
-  //Points.checkMPos();
-  //if (Points.selectedBox == 1) {
-  //  if (Points.start>9) {
-  //    Points.start=Points.start-10;
-  //    //println("subracted 10 points");
-  //  } else {
-  //    Points.start=0;
-  //    //println("set the points to 0");
-  //  }
-  //  Points.selectedBox=0;
-  //}
-  //if (Points.selectedBox == 2) {
-  //  if (Points.start>1) {
-  //    Points.start=Points.start-1;
-  //  }
-  //  if (Points.start<1) {
-  //    Points.start=0;
-  //  }
-  //  Points.selectedBox=0;
-  //}
-  //if (Points.selectedBox == 3) {
-  //  Points.start = Points.start + 1;
-  //  Points.selectedBox=0;
-  //}
-  //if (Points.selectedBox == 4) {
-  //  Points.start = Points.start +10;
-  //  Points.selectedBox=0;
-  //}
   
-  //if (disabled.checkMPos(1) == true) {
-  //  disabled.updateColor(220, 220, 220);
-  //}
-  //if (disabled.checkMPos(0) == false) {
-  //  disabled.updateColor(200, 200, 200);
-  //}
+  nameSelect.mousePressed();
+
   if (startMatchButton.checkMPos() == true) {
     startMatchButton.updateColor(0, 0, 255);
     run = true;

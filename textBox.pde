@@ -36,18 +36,18 @@ public class textBox {
   public void update(char k,int kc) {
     int inpLen = 0;
     inpLen = input.length();
-    println(kc);
+    //println(kc);
     if(kc==kBACKSPACE) {
      if(inpLen > 0) {
        input = input.substring(0, inpLen-1);
      }
     } else {input = input + k;}
-    println(inpLen);
+    //println(inpLen);
     if(inpLen==35 && kc != kBACKSPACE) { 
      input = input + "\n";
     }
     input = String.valueOf(input);
-    println(input);
+    //println(input);
     //writeText(Input);
   }
   

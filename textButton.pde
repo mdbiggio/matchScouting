@@ -4,7 +4,6 @@ public class textButton {
  float x,y,w,h;
  int Tr, Tg, Tb;
  String text;
- String input = "";
  boolean activated;
  float[] boxCs = {0,0,0,0};
  private static final int kENTER = 10;
@@ -49,8 +48,8 @@ public class textButton {
   int mY=mouseY;
 
   if(mX>this.boxCs[0] && mY>this.boxCs[1] && mX<this.boxCs[0]+this.boxCs[2] && mY<this.boxCs[1]+this.boxCs[3]) {
-    //return true;
-  } else {//return false;
-  }
+    activated = true;
+    updateColor(220, 220, 220);
+  } else {activated = false; updateColor(200, 200, 200);}
 }
 }

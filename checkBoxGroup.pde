@@ -61,10 +61,10 @@ public class checkBoxGroup {
             //2nd case
             boxes.get(checkedBox).isChecked = false;
             checkedBox = i;
-            println(i+" clicked");
+            //println(i+" clicked");
           } else {
             checkedBox = i;
-            println(i+" clicked");
+            //println(i+" clicked");
 
           }
         } else {checkedBox = -1;}
