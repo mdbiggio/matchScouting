@@ -3,7 +3,7 @@ public class checkBox {
  int bgR, bgG, bgB;
  float x,y;
  boolean isChecked;
- float[] boxCs = {0,0,40,40};
+ float[] boxCs = {0,0,80,80};
  PImage img = loadImage("checkmark-256.png");
 
  // Constructors
@@ -28,9 +28,9 @@ public class checkBox {
   
   public void draw() {
     fill(bgR, bgG, bgB);
-    rect(x,y,40,40);
+    rect(x,y,boxCs[2],boxCs[3]);
     if (isChecked) {
-      img.resize(40,40);
+      img.resize(int(boxCs[2]),int(boxCs[3]));
       image(img,x,y);
       //println("Image loaded");
     }

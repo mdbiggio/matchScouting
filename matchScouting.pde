@@ -14,6 +14,8 @@ String sS = "30";
 boolean run = false;
 boolean matchEnded;
 
+int page = 1;
+
 textBox matchNotes;
 textBox matchNumber;
 textBox teamNumber;
@@ -36,12 +38,15 @@ checkBoxGroup rankingPoints;
 checkBoxGroup rating;
 checkBoxGroup defenseRating;
 checkBoxGroup offenseRating;
+checkBoxGroup pageSelect;
 
 checkBox disabled;
 checkBox potf;
 checkBox flippedOver;
 checkBox attemptedRope;
 checkBox successfulRope;
+
+textButtonGroup nameSelect;
 
 boolean mousePos;
 int mX = mouseX;
@@ -65,9 +70,11 @@ void setup () {
   dump = new dumpData(matchNumberOut, teamNumberOut, matchNotesOut);
   //TextBoxes
   alliance = new textBox(850, 10, 30, 30, 0, 0, 255, 0, 0, 0, "", false);
-  matchNumber = new textBox(10, 50, 180, 30, 200, 200, 200, 0, 0, 0, "Match Number: ", false);
-  teamNumber = new textBox(10, 80, 180, 30, 200, 200, 200, 0, 0, 0, "Team Number: ", false);
-  teamMember = new textBox(10, 110, 240, 30, 200, 200, 200, 0, 0, 0, "Scout  Name: ", false);
+  //page 1
+  matchNumber = new textBox(10, 200, 500, 60, 200, 200, 200, 0, 0, 0, "Match Number: ", false);
+  teamNumber = new textBox(10, 300, 500, 60, 200, 200, 200, 0, 0, 0, "Team Number: ", false);
+  teamMember = new textBox(10, 400, 500, 60, 200, 200, 200, 0, 0, 0, "Scout  Name: ", false);
+  //page 2
   matchNotes = new textBox(1500, 100, 400, 200, 200, 200, 200, 0, 0, 0, "Match Notes: \n", false);
   end = new textBox(1700, 950, 200, 60, 30, 255, 30, 0, 0, 0, "End Match", false);
   times = new textBox(900, 10, 95, 30, 200, 200, 200, 0, 0, 0, "Time: ", false);
@@ -89,12 +96,14 @@ void setup () {
   attemptedRope = new checkBox(350, 690, 200, 200, 200, false);
   successfulRope = new checkBox(360, 750, 200, 200, 200, false);
   
+  //page 3
   rankingPoints = new checkBoxGroup(485,505,200,200,200,4,-1);
   
   offenseRating =  new checkBoxGroup(825,395,200,200,200,5,-1);
   defenseRating =  new checkBoxGroup(825,450,200,200,200,5,-1);
   rating = new checkBoxGroup(825,505,200,200,200,5,-1);
-  
+  pageSelect = new checkBoxGroup(825,100,200,200,200,3,0);
+  nameSelect = new textButtonGroup(200, 200, 200, 200, 200, 5, 5, 0);
   
   
 }
@@ -167,6 +176,10 @@ void mousePressed() {
   successfulRope.mousePressed();
   defenseRating.mousePressed();
   offenseRating.mousePressed();
+  
+  pageSelect.mousePressed();
+  page = pageSelect.checkedBox+1;
+  println(page);
   //Points.checkMPos();
   //if (Points.selectedBox == 1) {
   //  if (Points.start>9) {
@@ -211,89 +224,101 @@ void mousePressed() {
 }
 
 void draw() {
-
-
-  //println("i= "+i);
-  //i = i+1;
+  
   background(255, 255, 255);
   fill(200);
-  rect(10, 10, 180, 40);
-
-  //Title
-  textFont(font, 16);
+  rect(10, 10, 420, 80);
+  //title
+  textFont(font, 40);
   fill(0);
-  text("Match Scouting 2017!", 20, 35);
-  text("Alliance (Blue/Red)", 705, 30);
+  text("Match Scouting 2017!", 20, 60);
   
-  text("-10        -1                             +1        +10", 180, 215);
-  text("-10        -1                             +1        +10", 510, 215);
+  pageSelect.draw();
   
-  textFont(font, 32);
-  
-  text("Autonomous", 240, 180);
-  text("Teleop", 600, 180);
-  
-  text("# of Gears", 10, 260);
-  text("Fuel High", 10, 340);
-  text("Fuel Low",10, 420);
-  
-  text("Disabled:", 10, 540);
-  text("Parts on the Field:", 10, 600);
-  text("Flipped Over:", 10, 660);
-  text("Attempted Rope Climb:", 10, 720);
-  text("Successful Rope Climb:", 10, 780);
-  
+  if (page == 1) {
+    textFont(font, 32);
+    matchNumber.draw();
+    teamNumber.draw();
+    teamMember.draw();
+    nameSelect.draw();
+    
+  } else if (page == 2) {
 
   
-  //text("Ending Alliance Points:",10,520);
-  text("Ranking Points:", 10,850);
-  //text("Overall Performance Rating:", 620, 520);
-  //text("Defense Rating:", 705, 465);
-  //text("Offense Rating:", 710, 410);
+
+    text("Alliance (Blue/Red)", 705, 30);
+    
+    text("-10        -1                             +1        +10", 180, 215);
+    text("-10        -1                             +1        +10", 510, 215);
+    
+    textFont(font, 32);
+    
+    text("Autonomous", 240, 180);
+    text("Teleop", 600, 180);
+    
+    text("# of Gears", 10, 260);
+    text("Fuel High", 10, 340);
+    text("Fuel Low",10, 420);
+    
+    text("Disabled:", 10, 540);
+    text("Parts on the Field:", 10, 600);
+    text("Flipped Over:", 10, 660);
+    text("Attempted Rope Climb:", 10, 720);
+    text("Successful Rope Climb:", 10, 780);
+    
   
-  textSize(15);
-  text("1     2     3     4", 490,500);
-  text("1     2     3     4      5", 830, 500);
-  text("1     2     3     4      5", 830, 445);
-  text("1     2     3     4      5", 830, 390);
-  textSize(16);
-  //Body
-  //text("Match Number: " + matchNum,10, 70);
-  //text("Team Number: "+ teamNum,10,90);
-  matchNumber.draw();
-  teamNumber.draw();
-  teamMember.draw();
-  textFont(font,32);
-  matchNotes.draw();
-  end.draw();
-  textFont(font,16);
-  alliance.draw();
-  
-  timer();
-  times.draw();
-  times.start = "Time: "+m+":"+sS;
-  startMatchButton.draw();
-  
-  fuelLowAuto.draw();
-  fuelHighAuto.draw();
-  fuelLowTeleop.draw();
-  fuelHighTeleop.draw();
-  
-  gearsAuto.draw();
-  gearsTeleop.draw();
-  
-  Points.draw();
-  
-  disabled.draw();
-  potf.draw();
-  flippedOver.draw();
-  attemptedRope.draw();
-  successfulRope.draw();
-  
-  rankingPoints.draw();
-  rating.draw();
-  defenseRating.draw();
-  offenseRating.draw();
+    
+    //text("Ending Alliance Points:",10,520);
+    text("Ranking Points:", 10,850);
+    //text("Overall Performance Rating:", 620, 520);
+    //text("Defense Rating:", 705, 465);
+    //text("Offense Rating:", 710, 410);
+    
+    textSize(15);
+    text("1     2     3     4", 490,500);
+    text("1     2     3     4      5", 830, 500);
+    text("1     2     3     4      5", 830, 445);
+    text("1     2     3     4      5", 830, 390);
+    textSize(16);
+    //Body
+    //text("Match Number: " + matchNum,10, 70);
+    //text("Team Number: "+ teamNum,10,90);
+    
+    textFont(font,32);
+    matchNotes.draw();
+    end.draw();
+    textFont(font,16);
+    alliance.draw();
+    
+    timer();
+    times.draw();
+    times.start = "Time: "+m+":"+sS;
+    startMatchButton.draw();
+    
+    fuelLowAuto.draw();
+    fuelHighAuto.draw();
+    fuelLowTeleop.draw();
+    fuelHighTeleop.draw();
+    
+    gearsAuto.draw();
+    gearsTeleop.draw();
+    
+    Points.draw();
+    
+    disabled.draw();
+    potf.draw();
+    flippedOver.draw();
+    attemptedRope.draw();
+    successfulRope.draw();
+    
+    rankingPoints.draw();
+    rating.draw();
+    defenseRating.draw();
+    offenseRating.draw();
+  } else {
+    
+    
+  }
 }
 
 void keyPressed() {

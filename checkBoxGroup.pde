@@ -30,7 +30,7 @@ public class checkBoxGroup {
     
     // Need to set the x,y value of each checkBox
     
-    thisBox = new checkBox(x+(i-1)*60, y, bgR, bgG, bgB, checked);
+    thisBox = new checkBox(x+(i-1)*120, y, bgR, bgG, bgB, checked);
     //println("Adding 1 checkbox");
     boxes.add(thisBox);
   }
