@@ -25,45 +25,41 @@ public class counter {
     this.activated = activated;
     this.box1Cs[0] = int(x);//println("box1Cs[0]"+this.box1Cs[0]);
     this.box1Cs[1] = int(y+10);
-    this.box1Cs[2] = int(x+40);
-    this.box1Cs[3] = int(y+50);
+    this.box1Cs[2] = int(x+80);
+    this.box1Cs[3] = int(y+90);
     
-    this.box2Cs[0] = int(x+60);
+    this.box2Cs[0] = int(x+100);
     this.box2Cs[1] = int(y+10);
-    this.box2Cs[2] = int(x+100);
-    this.box2Cs[3] = int(y+50);
+    this.box2Cs[2] = int(x+180);
+    this.box2Cs[3] = int(y+90);
     
-    this.box3Cs[0] = int(x+200);
+    this.box3Cs[0] = int(x+320);
     this.box3Cs[1] = int(y+10);
-    this.box3Cs[2] = int(x+240);
-    this.box3Cs[3] = int(y+50);
+    this.box3Cs[2] = int(x+400);
+    this.box3Cs[3] = int(y+90);
     
-    this.box4Cs[0] = int(x+260);
+    this.box4Cs[0] = int(x+420);
     this.box4Cs[1] = int(y+10);
-    this.box4Cs[2] = int(x+300);
-    this.box4Cs[3] = int(y+50);
-    //println("0: "+box1Cs[0]+" 1: "+box1Cs[1]+" 2: "+box1Cs[2]+" 3: "+box1Cs[3]);
-    //println("0: "+box2Cs[0]+" 1: "+box2Cs[1]+" 2: "+box2Cs[2]+" 3: "+box2Cs[3]);
-    //println("0: "+box3Cs[0]+" 1: "+box3Cs[1]+" 2: "+box3Cs[2]+" 3: "+box3Cs[3]);
-    //println("0: "+box4Cs[0]+" 1: "+box4Cs[1]+" 2: "+box4Cs[2]+" 3: "+box4Cs[3]);
+    this.box4Cs[2] = int(x+500);
+    this.box4Cs[3] = int(y+90);
   }
   public void draw() {
     fill(bgR, bgG, bgB);
     
-    rect(box1Cs[0],box1Cs[1],40,40);//-10
-    rect(box2Cs[0],box2Cs[1],40,40);//-1
-    rect(box2Cs[0]+60,y,60,60);//number
-    rect(box3Cs[0],box3Cs[1],40,40);//+1
-    rect(box4Cs[0],box4Cs[1],40,40);//+10
+    rect(box1Cs[0],box1Cs[1],80,80);//-10
+    rect(box2Cs[0],box2Cs[1],80,80);//-1
+    rect(box2Cs[0]+100,y,100,100);//number
+    rect(box3Cs[0],box3Cs[1],80,80);//+1
+    rect(box4Cs[0],box4Cs[1],80,80);//+10
     
     
     fill(Tr,Tg,Tb);
     textFont(font,32);
-    text("+",x+210,y+40);
-    text("+",x+270,y+40);
-    text(start, x+130, y+40);
-    text("-", x+10, y+40);
-    text("-",x+70,y+40);
+    text("+",x+350,y+60);
+    text("+",x+450,y+60);
+    text(start, x+220, y+60);
+    text("-", x+40, y+60);
+    text("-",x+130,y+60);
   }
   
   void mousePressed() {
