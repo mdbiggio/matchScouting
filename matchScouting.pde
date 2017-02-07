@@ -63,19 +63,19 @@ int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
 void setup () {
   // this is where the team number is chosen via search and choose
   size(1920, 1080);
-
+  
   output = createWriter("Entries.txt");
   font = createFont("Arial", 16, true);
   //println("SetupComplete");
   dump = new dumpData(matchNumberOut, teamNumberOut, matchNotesOut);
   //TextBoxes
-  alliance = new textBox(850, 10, 30, 30, 0, 0, 255, 0, 0, 0, "", false);
+  alliance = new textBox(1500, 10, 80, 80, 0, 0, 255, 0, 0, 0, "", false);
   //page 1
   matchNumber = new textBox(10, 200, 500, 60, 200, 200, 200, 0, 0, 0, "Match Number: ", false);
   teamNumber = new textBox(10, 300, 500, 60, 200, 200, 200, 0, 0, 0, "Team Number: ", false);
   teamMember = new textBox(10, 400, 500, 60, 200, 200, 200, 0, 0, 0, "Scout  Name: ", false);
   //page 2
-  matchNotes = new textBox(1500, 300, 400, 200, 200, 200, 200, 0, 0, 0, "Match Notes: \n", false);
+  matchNotes = new textBox(1150, 50, 700, 800, 200, 200, 200, 0, 0, 0, "Match Notes: \n", false);
   end = new textButton(1700, 950, 200, 60, 30, 255, 30, 0, 0, 0, "End Match", false);
   times = new textBox(1600, 10, 200, 60, 200, 200, 200, 0, 0, 0, "Time: ", false);
   startMatchButton = new textButton(1600, 80, 200, 60, 200, 200, 200, 0, 0, 0, "Start Match", false);
@@ -110,7 +110,8 @@ void setup () {
   
 }
 
-void mousePressed() {  
+void mousePressed() {
+  
   if (alliance.checkMPos() == true) {
     if (alli=="Blue") {
       alliance.updateColor(255, 0, 0);
@@ -228,7 +229,7 @@ void draw() {
 
     fill(0);
 
-    text("Alliance (Blue/Red)", 705, 30);
+    text("Alliance (Blue/Red)", 1150, 60);
     
     text("-10     -1               +1     +10", 180, 215);
     text("-10     -1               +1     +10", 810, 215);
@@ -252,7 +253,7 @@ void draw() {
     
     
 
-    matchNotes.draw();
+    
     end.draw();
     alliance.draw();
     
@@ -289,12 +290,17 @@ void draw() {
     rating.draw();
     defenseRating.draw();
     offenseRating.draw();
+    font = createFont("Lucida Console", 32, true);
+    textFont(font, 32);
+    matchNotes.draw();
+    font = createFont("Arial", 32, true);
+    textFont(font, 32);
     
     fill(0);
-    text("1     2     3     4", 490,500);
-    text("1     2     3     4      5", 830, 500);
-    text("1     2     3     4      5", 830, 445);
-    text("1     2     3     4      5", 830, 390);
+    text("1           2           3           4", 350,370);
+    text("1            2           3            4           5", 560, 495);
+    text("1            2           3            4           5", 350, 620);
+    text("1            2           3            4           5", 440, 745);
     
   }
 }
