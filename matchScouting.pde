@@ -59,10 +59,20 @@ int teamNumberOut = 1111;
 String matchNotesOut = "Notes";
 int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
 
+ChildApplet child;
+
+void settings() {
+  size(1920,1080);
+  smooth();
+}
 
 void setup () {
+  surface.setTitle("Match Scouting 2017");
   // this is where the team number is chosen via search and choose
   size(1920, 1080);
+  
+  child = new ChildApplet();
+  child.setup(400,400);
   
   output = createWriter("Entries.txt");
   font = createFont("Arial", 16, true);
@@ -101,7 +111,7 @@ void setup () {
   rankingPoints = new checkBoxGroup(400,375,200,200,200,4,-1);
   rating = new checkBoxGroup(620,500,200,200,200,5,-1);
   defenseRating =  new checkBoxGroup(410,625,200,200,200,5,-1);
-  offenseRating =  new checkBoxGroup(500,750,200,200,200,5,-1);
+  offenseRating =  new checkBoxGroup(410,750,200,200,200,5,-1);
   
   
   pageSelect = new checkBoxGroup(825,10,200,200,200,3,0);
@@ -186,6 +196,7 @@ void mousePressed() {
   flippedOver.mousePressed();
   attemptedRope.mousePressed();
   successfulRope.mousePressed();
+  if (successfulRope.isChecked == true) {attemptedRope.isChecked = true;}
   defenseRating.mousePressed();
   
   offenseRating.mousePressed();
@@ -215,11 +226,14 @@ void draw() {
   textFont(font, 40);
   fill(0);
   text("Match Scouting 2017!", 20, 60);
+  alliance.draw();
+  text("Alliance (Blue/Red)", 1150, 60);
   
   pageSelect.draw();
   
   if (page == 1) {
     textFont(font, 32);
+
     matchNumber.draw();
     teamNumber.draw();
     teamMember.draw();
@@ -255,7 +269,7 @@ void draw() {
 
     
     end.draw();
-    alliance.draw();
+    
     
     timer();
     times.draw();
@@ -300,7 +314,7 @@ void draw() {
     text("1           2           3           4", 350,370);
     text("1            2           3            4           5", 560, 495);
     text("1            2           3            4           5", 350, 620);
-    text("1            2           3            4           5", 440, 745);
+    text("1            2           3            4           5", 350, 745);
     
   }
 }
