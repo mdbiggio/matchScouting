@@ -18,7 +18,6 @@ boolean matchEnded;
 int page = 1;
 
 textBox matchNotes;
-textBox matchNumber;
 textBox teamNumber;
 textBox teamMember;
 textBox alliance;
@@ -26,6 +25,7 @@ textButton end;
 textBox times;
 textButton startMatchButton;
 
+counter matchNumber;
 counter Points;
 counter gearsAuto;
 counter gearsTeleop;
@@ -75,7 +75,7 @@ void setup () {
   child = new ChildApplet();
   //child.setup();
   
-  output = createWriter("Entries.txt");
+  //output = createWriter("Entries.txt");
   font = createFont("Arial", 16, true);
   //println("SetupComplete");
   dump = new dumpData(matchNumberOut, teamNumberOut, matchNotesOut);
@@ -84,9 +84,9 @@ void setup () {
   //page 1
   pageSelect = new checkBoxGroup(825,10,200,200,200,3,0);
   nameSelect = new textButtonGroup(600, 200, 200, 200, 200, 5, 5, 0);
-  matchNumber = new textBox(10, 200, 500, 60, 200, 200, 200, 0, 0, 0, "Match Number: ", false, false, false);
-  teamNumber = new textBox(10, 300, 500, 60, 200, 200, 200, 0, 0, 0, "Team Number: ", false, false, false);
-  teamMember = new textBox(10, 400, 500, 60, 200, 200, 200, 0, 0, 0, "Scout  Name: ", false, true, false);
+  matchNumber = new counter(10, 900, 120, 80, 200, 200, 200, 0, 0, 0, 1, false);
+  teamNumber = new textBox(10, 200, 500, 60, 200, 200, 200, 0, 0, 0, "Team Number: ", false, false, false);
+  teamMember = new textBox(10, 300, 500, 60, 200, 200, 200, 0, 0, 0, "Scout  Name: ", false, true, false);
   //page 2
   times = new textBox(1600, 10, 200, 60, 200, 200, 200, 0, 0, 0, "Time: ", false, false, false);
   startMatchButton = new textButton(1600, 80, 200, 60, 200, 200, 200, 0, 0, 0, "Start Match", false);
@@ -118,6 +118,7 @@ void setup () {
 }
 
 void mousePressed() {
+  activeBox = "";
   if (page == 1) {
     matchNumber.mousePressed();
     teamNumber.mousePressed();
@@ -141,7 +142,7 @@ void mousePressed() {
     rating.mousePressed();
     potf.mousePressed();
     flippedOver.mousePressed();
-    attemptedRope.mousePressed();b
+    attemptedRope.mousePressed();
     successfulRope.mousePressed();
     if (successfulRope.isChecked == true) {attemptedRope.isChecked = true;}
     startMatchButton.mousePressed();
@@ -160,11 +161,15 @@ void mousePressed() {
     end.mousePressed();
     if(end.activated == true) {
       end.updateColor(30, 255, 30);
-      matchNotesOut = matchNotes.input;
-      dump.outputToFile();
+      //matchNotesOut = matchNotes.input;
+      //dump.outputToFile();
       activeBox = "end";
       run = false;
       startMatchButton.updateColor(200,200,200);
+      pageSelect.boxes.get(2).isChecked = false;
+      pageSelect.boxes.get(0).isChecked = true;
+      pageSelect.checkedBox = 0;
+      matchNumber.start = matchNumber.start + 1;
     }
     defenseRating.mousePressed();
     offenseRating.mousePressed();
@@ -286,9 +291,9 @@ void draw() {
 
 void keyPressed() {
   println(key+" "+activeBox);
-  if (activeBox=="matchNumber") {
-    matchNumber.update(key, keyCode);
-  }
+  //if (activeBox=="matchNumber") {
+    //matchNumber.update(key, keyCode);
+  //}
   if (activeBox=="teamNumber") {
     teamNumber.update(key, keyCode);
   }

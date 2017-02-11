@@ -47,7 +47,7 @@ public class checkBoxGroup {
     }
     
   }
-
+  
   void mousePressed() {
     checkBox thisBox;
     for(int i = 0; i<this.numBoxes; i++) {

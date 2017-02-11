@@ -12,12 +12,13 @@ public class loadJson {
       JSONObject match = values.getJSONObject(i); 
   
       int factId = match.getInt("factId");
-      String Alliance = match.getString("Alliance");
-      int Match = match.getInt("Match #");
-      int Team = match.getInt("Team #");
+      String tournament = match.getString("Tournamnet");
+      String alliance = match.getString("Alliance");
+      int matchNum = match.getInt("Match #");
+      int teamNum = match.getInt("Team #");
       
   
-      println(factId + ", " + Alliance + ", " + Match + ", " + Team);
+      println(factId + ", " + alliance + ", " + matchNum + ", " + teamNum + ", " + tournament);
     }
   }
 }
