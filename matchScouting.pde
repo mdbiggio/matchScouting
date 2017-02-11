@@ -115,20 +115,62 @@ void setup () {
   offenseRating =  new checkBoxGroup(410,1000,200,200,200,5,-1);
   matchNotes = new textBox(1150, 100, 700, 800, 200, 200, 200, 0, 0, 0, "Match Notes: \n", false, true, false);
   end = new textButton(1700, 950, 200, 80, 30, 255, 30, 0, 0, 0, "End Match", false);
-  
-  
-  
-  
-  
 }
 
 void mousePressed() {
+  if (page == 1) {
+    matchNumber.mousePressed();
+    teamNumber.mousePressed();
+    teamMember.mousePressed();
+    if (teamMember.activated == true) {
+      activeBox = "teamMember";
+    }
+    nameSelect.mousePressed();
+  } 
+  if (page == 2) {
+    gearsAuto.mousePressed();
+    gearsTeleop.mousePressed();
+    fuelLowAuto.mousePressed();
+    fuelHighAuto.mousePressed();
+    fuelLowTeleop.mousePressed();
+    fuelHighTeleop.mousePressed();
+    
+    Points.mousePressed();
+    disabled.mousePressed();
+    rankingPoints.mousePressed();
+    rating.mousePressed();
+    potf.mousePressed();
+    flippedOver.mousePressed();
+    attemptedRope.mousePressed();b
+    successfulRope.mousePressed();
+    if (successfulRope.isChecked == true) {attemptedRope.isChecked = true;}
+    startMatchButton.mousePressed();
+    if (startMatchButton.activated == true) {
+      startMatchButton.updateColor(0, 0, 255);
+      run = true;
+      startTime = millis();
+    }
+      
+  }
+  if (page == 3) {
+    matchNotes.mousePressed();
+    if (matchNotes.activated == true) {
+      activeBox = "matchNotes";
+    }
+    end.mousePressed();
+    if(end.activated == true) {
+      end.updateColor(30, 255, 30);
+      matchNotesOut = matchNotes.input;
+      dump.outputToFile();
+      activeBox = "end";
+      run = false;
+      startMatchButton.updateColor(200,200,200);
+    }
+    defenseRating.mousePressed();
+    offenseRating.mousePressed();
+    
+  }
   
-  
-  matchNumber.mousePressed();
-  matchNotes.mousePressed();
-  teamNumber.mousePressed();
-  teamMember.mousePressed();
   alliance.mousePressed();
   if (alliance.activated == true) {
     println(alli);
@@ -141,102 +183,9 @@ void mousePressed() {
     }
   }
   
-  //if (alliance.checkMPos() == true) {
-  //  if (alli=="Blue") {
-  //    alliance.updateColor(255, 0, 0);
-  //    alli="Red";
-  //  } else {
-  //    alliance.updateColor(0, 0, 255);
-  //    alli="Blue";
-  //  }
-  //}
-  //if (matchNumber.checkMPos() == true) {
-  //  matchNumber.updateColor(220, 220, 220);
-  //  activeBox = "matchNumber";
-  //  //println(activeBox);
-  //} 
-  //if (matchNumber.checkMPos() == false) {
-  //  matchNumber.updateColor(200, 200, 200);
-  //}
-  //if (matchNotes.checkMPos() == true) {
-  //  matchNotes.updateColor(220,220,220);
-  //  activeBox = "matchNotes";
-  //}
-  //if (matchNotes.checkMPos() == false) {
-  //  matchNotes.updateColor(200, 200, 200);
-  //  activeBox = "";
-  //}
-  //if (teamNumber.checkMPos() == true) {
-  //  teamNumber.updateColor(220, 220, 220);
-  //  activeBox = "teamNumber";
-  //}
-  //if (teamNumber.checkMPos() == false) {
-  //  teamNumber.updateColor(200, 200, 200);
-  //}
-  //if (teamMember.checkMPos() == true) {
-  //  teamMember.updateColor(220, 220, 220);
-  //  activeBox = "teamMember";
-  //}
-  //if (teamMember.checkMPos() == false) {
-  //  teamMember.updateColor(200, 200, 200);
-  //}
-  //if (end.checkMPos() == true) {
-  //  end.updateColor(30, 255, 30);
-  //  matchNotesOut = matchNotes.input;
-  //  dump.outputToFile();
-  //  activeBox = "end";
-  //  run = false;
-  //  startMatchButton.updateColor(200,200,200);
-  //}
-  //if (end.checkMPos() == false) {
-  //  end.updateColor(30, 200, 30);
-    
-  //}
-  end.mousePressed();
-  if(end.activated == true) {
-    end.updateColor(30, 255, 30);
-    matchNotesOut = matchNotes.input;
-    dump.outputToFile();
-    activeBox = "end";
-    run = false;
-    startMatchButton.updateColor(200,200,200);
-    
-  }
-  gearsAuto.mousePressed();
-  gearsTeleop.mousePressed();
-  fuelLowAuto.mousePressed();
-  fuelHighAuto.mousePressed();
-  fuelLowTeleop.mousePressed();
-  fuelHighTeleop.mousePressed();
-  
-  Points.mousePressed();
-  disabled.mousePressed();
-  rankingPoints.mousePressed();
-  rating.mousePressed();
-  potf.mousePressed();
-  flippedOver.mousePressed();
-  attemptedRope.mousePressed();
-  successfulRope.mousePressed();
-  if (successfulRope.isChecked == true) {attemptedRope.isChecked = true;}
-  
-  defenseRating.mousePressed();
-  
-  offenseRating.mousePressed();
-  
   pageSelect.mousePressed();
   page = pageSelect.checkedBox+1;
   println(page);
-  
-  nameSelect.mousePressed();
-  
-  startMatchButton.mousePressed();
-
-  if (startMatchButton.activated == true) {
-    startMatchButton.updateColor(0, 0, 255);
-    run = true;
-    startTime = millis();
-  } //else {activeBox = "None";}
-  //println(activeBox);
 }
 
 void draw() {
