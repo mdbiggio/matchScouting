@@ -1,9 +1,10 @@
 public class loadJson {
   JSONArray values;
   int scoutNum;
+  
 
   void load(int scoutNum) {
-    this.scoutNum =scoutNum;
+    this.scoutNum = scoutNum;
     values = loadJSONArray("data.json");
   
     for (int i = 0; i < values.size(); i++) {

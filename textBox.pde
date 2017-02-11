@@ -9,9 +9,13 @@ public class textBox {
  float[] boxCs = {0,0,0,0};
  private static final int kENTER = 10;
  private static final int kBACKSPACE = 8;
+ boolean keyboard;
+ boolean colorToggle;
+ boolean drawn = false;
+ 
  
  // Constructors
- public textBox (float x, float y, float w, float h, int bgR, int bgG, int bgB, int Tr, int Tg, int Tb, String start,boolean activated) {
+ public textBox (float x, float y, float w, float h, int bgR, int bgG, int bgB, int Tr, int Tg, int Tb, String start, boolean activated, boolean keyboard, boolean colorToggle) {
   this.x = x;
   this.y = y;
   this.w = w;
@@ -28,7 +32,8 @@ public class textBox {
   this.boxCs[1] = y;
   this.boxCs[2] = w;
   this.boxCs[3] = h;
-  
+  this.keyboard = keyboard;
+  this.colorToggle = colorToggle;
   }
   // Methods\
   
@@ -63,13 +68,21 @@ public class textBox {
     rect(x,y,w,h);
     fill(Tr,Tg,Tb);
     text(start+input, x+10, y+40);
+    drawn = true;
   }
-  boolean checkMPos() {
-  int mX=mouseX;
-  int mY=mouseY;
-
-  if(mX>this.boxCs[0] && mY>this.boxCs[1] && mX<this.boxCs[0]+this.boxCs[2] && mY<this.boxCs[1]+this.boxCs[3]) {
-    return true;
-  } else {return false;}
-}
+  public void mousePressed() {
+    
+    int mX=mouseX;
+    int mY=mouseY;
+    if (drawn) {
+      if(mX>this.boxCs[0] && mY>this.boxCs[1] && mX<this.boxCs[0]+this.boxCs[2] && mY<this.boxCs[1]+this.boxCs[3]) {
+        activated = true;
+        updateColor(220, 220, 220);
+        println(keyboard);
+        if (keyboard) {
+          launch("C:/Program Files/Common Files/microsoft shared/ink/tabtip.exe");
+        }
+      } else {activated = false; if (colorToggle ==false) {updateColor(200, 200, 200);}}
+    }
+  }
 }
