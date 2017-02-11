@@ -9,6 +9,7 @@ int x = 0;
 int t, m = 2, s;
 int interval = 150;
 int startTime;
+int currMatch;
 String time;
 String sS = "30";
 boolean run = false;
@@ -62,17 +63,17 @@ int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
 ChildApplet child;
 
 void settings() {
-  size(1920,1080);
+  fullScreen();
   smooth();
 }
 
 void setup () {
   surface.setTitle("Match Scouting 2017");
   // this is where the team number is chosen via search and choose
-  size(1920, 1080);
+  //size(1920, 1080);
   
   child = new ChildApplet();
-  child.setup(400,400);
+  //child.setup();
   
   output = createWriter("Entries.txt");
   font = createFont("Arial", 16, true);
@@ -86,25 +87,25 @@ void setup () {
   teamMember = new textBox(10, 400, 500, 60, 200, 200, 200, 0, 0, 0, "Scout  Name: ", false);
   //page 2
   matchNotes = new textBox(1150, 50, 700, 800, 200, 200, 200, 0, 0, 0, "Match Notes: \n", false);
-  end = new textButton(1700, 950, 200, 60, 30, 255, 30, 0, 0, 0, "End Match", false);
+  end = new textButton(1700, 950, 200, 80, 30, 255, 30, 0, 0, 0, "End Match", false);
   times = new textBox(1600, 10, 200, 60, 200, 200, 200, 0, 0, 0, "Time: ", false);
   startMatchButton = new textButton(1600, 80, 200, 60, 200, 200, 200, 0, 0, 0, "Start Match", false);
   
   gearsAuto = new counter(170, 220, 200, 200, 200, 0, 0, 0, 0, false);
   gearsTeleop = new counter(800, 220, 200, 200, 200, 0, 0, 0, 0, false);
   
-  fuelLowAuto = new counter(170, 300, 200, 200, 200, 0, 0, 0, 0, false);
-  fuelHighAuto = new counter(170, 380, 200, 200, 200, 0, 0, 0, 0, false);
-  fuelLowTeleop = new counter(800, 300, 200, 200, 200, 0, 0, 0, 0, false);
-  fuelHighTeleop = new counter(800, 380, 200, 200, 200, 0, 0, 0, 0, false);
+  fuelLowAuto = new counter(170, 340, 200, 200, 200, 0, 0, 0, 0, false);
+  fuelHighAuto = new counter(170, 460, 200, 200, 200, 0, 0, 0, 0, false);
+  fuelLowTeleop = new counter(800, 340, 200, 200, 200, 0, 0, 0, 0, false);
+  fuelHighTeleop = new counter(800, 460, 200, 200, 200, 0, 0, 0, 0, false);
   
   
   
-  disabled = new checkBox(160, 510, 200, 200, 200, false);
-  potf = new checkBox(280, 600, 200, 200, 200, false);
-  flippedOver = new checkBox(210, 690, 200, 200, 200, false);
-  attemptedRope = new checkBox(350, 780, 200, 200, 200, false);
-  successfulRope = new checkBox(360, 870, 200, 200, 200, false);
+  disabled = new checkBox(160, 600, 200, 200, 200, false);
+  potf = new checkBox(280, 690, 200, 200, 200, false);
+  flippedOver = new checkBox(210, 780, 200, 200, 200, false);
+  attemptedRope = new checkBox(350, 870, 200, 200, 200, false);
+  successfulRope = new checkBox(360, 960, 200, 200, 200, false);
   
   //page 3
   Points = new counter(440, 240, 200, 200, 200, 0, 0, 0, 0, false); 
@@ -181,6 +182,7 @@ void mousePressed() {
     activeBox = "end";
     run = false;
     startMatchButton.updateColor(200,200,200);
+    
   }
   gearsAuto.mousePressed();
   gearsTeleop.mousePressed();
@@ -188,6 +190,7 @@ void mousePressed() {
   fuelHighAuto.mousePressed();
   fuelLowTeleop.mousePressed();
   fuelHighTeleop.mousePressed();
+  
   Points.mousePressed();
   disabled.mousePressed();
   rankingPoints.mousePressed();
@@ -197,6 +200,7 @@ void mousePressed() {
   attemptedRope.mousePressed();
   successfulRope.mousePressed();
   if (successfulRope.isChecked == true) {attemptedRope.isChecked = true;}
+  
   defenseRating.mousePressed();
   
   offenseRating.mousePressed();
@@ -254,23 +258,15 @@ void draw() {
     text("Teleop", 600, 180);
     
     text("# of Gears", 10, 260);
-    text("Fuel High", 10, 340);
-    text("Fuel Low",10, 420);
+    text("Fuel High", 10, 400);
+    text("Fuel Low",10, 520);
     
-    text("Disabled:", 10, 560);
-    text("Parts on the Field:", 10, 650);
-    text("Flipped Over:", 10, 740);
-    text("Attempted Rope Climb:", 10, 830);
-    text("Successful Rope Climb:", 10, 920);
-    
-  
-    
-    
-
-    
-    end.draw();
-    
-    
+    text("Disabled:", 10, 650);
+    text("Parts on the Field:", 10, 740);
+    text("Flipped Over:", 10, 830);
+    text("Attempted Rope Climb:", 10, 920);
+    text("Successful Rope Climb:", 10, 1010);
+   
     timer();
     times.draw();
     times.start = "Time: "+m+":"+sS;
@@ -291,6 +287,7 @@ void draw() {
     successfulRope.draw();
     
     
+    
   } else {
     fill(0);
     text("Ending Alliance Points:",10,300);
@@ -304,6 +301,7 @@ void draw() {
     rating.draw();
     defenseRating.draw();
     offenseRating.draw();
+    end.draw();
     font = createFont("Lucida Console", 32, true);
     textFont(font, 32);
     matchNotes.draw();
