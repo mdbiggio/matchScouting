@@ -10,12 +10,16 @@ int t, m = 2, s;
 int interval = 150;
 int startTime;
 int currMatch;
+int TEAMNUM;
 String time;
 String sS = "30";
 boolean run = false;
 boolean matchEnded;
 
 int page = 1;
+
+JSONArray values;
+int scoutNum;
 
 textBox matchNotes;
 textBox teamNumber;
@@ -170,6 +174,8 @@ void mousePressed() {
       pageSelect.boxes.get(0).isChecked = true;
       pageSelect.checkedBox = 0;
       matchNumber.start = matchNumber.start + 1;
+      loadJSON(matchNumber.start);
+      
     }
     defenseRating.mousePressed();
     offenseRating.mousePressed();
@@ -177,21 +183,13 @@ void mousePressed() {
   }
   
   alliance.mousePressed();
-  if (alliance.activated == true) {
-    println(alli);
-    if (alli == "blue") {
-      alli = "red";
-      alliance.updateColor(255,0,0);
-    } else {
-      alli = "blue";
-      alliance.updateColor(0,0,255);
-    }
-  }
+  if (alliance.activated) {changeAlli(alli);}
   
   pageSelect.mousePressed();
   page = pageSelect.checkedBox+1;
   println(page);
 }
+
 
 void draw() {
   
@@ -288,6 +286,41 @@ void draw() {
     
   }
 }
+
+void changeAlli(String Alliance) {
+  if (Alliance == "Blue") {  //Blue case
+    alliance.updateColor(255,0,0);
+  } else { //Red case
+    alliance.updateColor(0,0,255);
+  }
+}
+
+void loadJSON(int MATCH) {
+    values = loadJSONArray("data.json");
+    //for (int i = 0; i < values.size(); i++) {
+    
+        
+      JSONObject match = values.getJSONObject(MATCH+1); 
+  
+      int factId = match.getInt("factId");
+      //int MATCHNUM = (factId - (scoutNum)/6)+1;
+      
+      String tournament = match.getString("Tournament");
+      alli = match.getString("Alliance");
+      
+      int MATCHNUM = match.getInt("Match #");
+      int TEAMNUM = match.getInt("Team #");
+      
+      String TEAMNUMs = str(TEAMNUM);
+      int FACTID = scoutNum+((MATCHNUM-1)*6);
+      
+      println(factId + ", " + alli + ", " + MATCHNUM + ", " + TEAMNUM + ", " + tournament);
+      //if (MATCH == MATCHNUM && FACTID == factId) {changeAlli(alli); teamNumber.input = TEAMNUMs;  break;}
+      changeAlli(alli); 
+      teamNumber.input = TEAMNUMs;
+    
+}
+
 
 void keyPressed() {
   println(key+" "+activeBox);
