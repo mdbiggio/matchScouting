@@ -9,7 +9,6 @@ int x = 0;
 int t, m = 2, s;
 int interval = 150;
 int startTime;
-int currMatch;
 int TEAMNUM;
 String time;
 String sS = "30";
@@ -27,7 +26,9 @@ textBox teamMember;
 textBox alliance;
 textButton end;
 textBox times;
+
 textButton startMatchButton;
+textButton loadMatchButton;
 
 counter matchNumber;
 counter Points;
@@ -64,6 +65,22 @@ int teamNumberOut = 1111;
 String matchNotesOut = "Notes";
 int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
 
+int[][] factIDs = {
+  {1,2,3,4,5,6},
+  {7,8,9,10,11,12},
+  {13,14,15,16,17,18},
+  {19,20,21,22,23,24},
+  {25,26,27,28,29,30},
+  {31,32,33,34,35,36},
+  {37,38,39,40,41,42},
+  {43,44,45,46,47,48},
+  {49,50,51,52,53,54},
+  {55,56,57,58,59,60},
+  {61,62,63,64,65,66},
+  {67,68,69,70,71,72},
+};
+
+
 ChildApplet child;
 
 void settings() {
@@ -94,6 +111,8 @@ void setup () {
   //page 2
   times = new textBox(1600, 10, 200, 60, 200, 200, 200, 0, 0, 0, "Time: ", false, false, false);
   startMatchButton = new textButton(1600, 80, 200, 60, 200, 200, 200, 0, 0, 0, "Start Match", false);
+  
+  loadMatchButton = new textButton(800,800,200,60,200,200,200,0,0,0,"Load Match", false);
   
   gearsAuto = new counter(170, 220, 120, 40, 200, 200, 200, 0, 0, 0, 0, false);
   gearsTeleop = new counter(1070, 220, 120, 40, 200, 200, 200, 0, 0, 0, 0, false);
@@ -131,6 +150,10 @@ void mousePressed() {
       activeBox = "teamMember";
     }
     nameSelect.mousePressed();
+    loadMatchButton.mousePressed();
+    if (loadMatchButton.activated) {
+      loadJSON(matchNumber.start);
+    }
   } 
   if (page == 2) {
     gearsAuto.mousePressed();
@@ -212,6 +235,7 @@ void draw() {
     teamNumber.draw();
     teamMember.draw();
     nameSelect.draw();
+    loadMatchButton.draw();
     
   } else if (page == 2) {
 
@@ -297,27 +321,29 @@ void changeAlli(String Alliance) {
 
 void loadJSON(int MATCH) {
     values = loadJSONArray("data.json");
+    println("match: " + MATCH);
+    println("scout: " + child.scout);
     //for (int i = 0; i < values.size(); i++) {
+    int i = factIDs[MATCH-1][child.scout-1];
+
+    JSONObject match = values.getJSONObject(i); 
+
+    //int factId = match.getInt("factId");
+    //int MATCHNUM = (factId - (scoutNum)/6)+1;
     
-        
-      JSONObject match = values.getJSONObject(MATCH+1); 
-  
-      int factId = match.getInt("factId");
-      //int MATCHNUM = (factId - (scoutNum)/6)+1;
-      
-      String tournament = match.getString("Tournament");
-      alli = match.getString("Alliance");
-      
-      int MATCHNUM = match.getInt("Match #");
-      int TEAMNUM = match.getInt("Team #");
-      
-      String TEAMNUMs = str(TEAMNUM);
-      int FACTID = scoutNum+((MATCHNUM-1)*6);
-      
-      println(factId + ", " + alli + ", " + MATCHNUM + ", " + TEAMNUM + ", " + tournament);
-      //if (MATCH == MATCHNUM && FACTID == factId) {changeAlli(alli); teamNumber.input = TEAMNUMs;  break;}
-      changeAlli(alli); 
-      teamNumber.input = TEAMNUMs;
+    String tournament = match.getString("Tournament");
+    String alli = match.getString("Alliance");
+    
+    int MATCHNUM = match.getInt("Match #");
+    int TEAMNUM = match.getInt("Team #");
+    
+    String TEAMNUMs = str(TEAMNUM);
+    //int FACTID = scoutNum+((MATCHNUM-1)*6);
+    
+    println(i + ", " + alli + ", " + MATCHNUM + ", " + TEAMNUM + ", " + tournament);
+    //if (MATCH == MATCHNUM && FACTID == factId) {changeAlli(alli); teamNumber.input = TEAMNUMs;  break;}
+    changeAlli(alli); 
+    teamNumber.input = TEAMNUMs;
     
 }
 
