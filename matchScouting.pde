@@ -65,22 +65,6 @@ int teamNumberOut = 1111;
 String matchNotesOut = "Notes";
 int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
 
-int[][] factIDs = {
-  {1,2,3,4,5,6},
-  {7,8,9,10,11,12},
-  {13,14,15,16,17,18},
-  {19,20,21,22,23,24},
-  {25,26,27,28,29,30},
-  {31,32,33,34,35,36},
-  {37,38,39,40,41,42},
-  {43,44,45,46,47,48},
-  {49,50,51,52,53,54},
-  {55,56,57,58,59,60},
-  {61,62,63,64,65,66},
-  {67,68,69,70,71,72},
-};
-
-
 ChildApplet child;
 
 void settings() {
@@ -196,18 +180,17 @@ void mousePressed() {
       pageSelect.boxes.get(2).isChecked = false;
       pageSelect.boxes.get(0).isChecked = true;
       pageSelect.checkedBox = 0;
+      saveJSON();
       matchNumber.start = matchNumber.start + 1;
       loadJSON(matchNumber.start);
+      
       
     }
     defenseRating.mousePressed();
     offenseRating.mousePressed();
     
   }
-  
-  alliance.mousePressed();
-  if (alliance.activated) {changeAlli(alli);}
-  
+   
   pageSelect.mousePressed();
   page = pageSelect.checkedBox+1;
   println(page);
@@ -311,25 +294,21 @@ void draw() {
   }
 }
 
-void changeAlli(String Alliance) {
-  if (Alliance == "Blue") {  //Blue case
-    alliance.updateColor(255,0,0);
-  } else { //Red case
-    alliance.updateColor(0,0,255);
-  }
+void updateAlli() {
+  if (child.scout < 4) {alliance.updateColor(0,0,255);}
+  if (child.scout > 3) {alliance.updateColor(255,0,0);}
 }
 
 void loadJSON(int MATCH) {
     values = loadJSONArray("data.json");
     println("match: " + MATCH);
     println("scout: " + child.scout);
-    //for (int i = 0; i < values.size(); i++) {
-    int i = factIDs[MATCH-1][child.scout-1];
+    
+    int i = (MATCH-1)*6;
+    i = i+child.scout;
+    i--;
 
     JSONObject match = values.getJSONObject(i); 
-
-    //int factId = match.getInt("factId");
-    //int MATCHNUM = (factId - (scoutNum)/6)+1;
     
     String tournament = match.getString("Tournament");
     String alli = match.getString("Alliance");
@@ -338,15 +317,25 @@ void loadJSON(int MATCH) {
     int TEAMNUM = match.getInt("Team #");
     
     String TEAMNUMs = str(TEAMNUM);
-    //int FACTID = scoutNum+((MATCHNUM-1)*6);
     
     println(i + ", " + alli + ", " + MATCHNUM + ", " + TEAMNUM + ", " + tournament);
-    //if (MATCH == MATCHNUM && FACTID == factId) {changeAlli(alli); teamNumber.input = TEAMNUMs;  break;}
-    changeAlli(alli); 
+    println(alli);
+    updateAlli(); 
     teamNumber.input = TEAMNUMs;
     
 }
 
+void saveJSON() {
+  values = loadJSONArray("data.json");
+  
+  JSONObject match = values.getJSONObject(i);
+  
+  match.setString("Scout Name", teamMember.input);
+  match.setInt("Gears Tele", 
+  
+  saveJSONArray(values, "data/data.json");
+  
+}
 
 void keyPressed() {
   println(key+" "+activeBox);
