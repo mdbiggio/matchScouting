@@ -97,7 +97,11 @@ void setup () {
   times = new textBox(1600, 10, 200, 60, 200, 200, 200, 0, 0, 0, "Time: ", false, false, false);
   startMatchButton = new textButton(1600, 80, 200, 60, 200, 200, 200, 0, 0, 0, "Start Match", false);
   
+<<<<<<< HEAD
   loadMatchButton = new textButton(390,1100,200,60,200,200,200,0,0,0,"Load Match", false);
+=======
+  loadMatchButton = new textButton(800,800,200,60,200,200,200,0,0,0,"Load Match", false);
+>>>>>>> origin/master
   
   gearsAuto = new counter(170, 220, 120, 40, 200, 200, 200, 0, 0, 0, 0, false);
   gearsTeleop = new counter(1070, 220, 120, 40, 200, 200, 200, 0, 0, 0, 0, false);
@@ -190,9 +194,13 @@ void mousePressed() {
     }
     defenseRating.mousePressed();
     offenseRating.mousePressed();
+<<<<<<< HEAD
     rankingPoints.mousePressed();
     rating.mousePressed();
     Points.mousePressed();
+=======
+    
+>>>>>>> origin/master
   }
    
   pageSelect.mousePressed();
@@ -331,6 +339,7 @@ void loadJSON(int MATCH) {
 }
 
 void saveJSON() {
+<<<<<<< HEAD
   JSONArray values1;
   values1 = loadJSONArray("dataOut.json");
   println(values1);
@@ -362,6 +371,17 @@ void saveJSON() {
   
   values1.append(match);
   saveJSONArray(values1, "data/dataOut.json");
+=======
+  values = loadJSONArray("data.json");
+  
+  JSONObject match = values.getJSONObject(i);
+  
+  match.setString("Scout Name", teamMember.input);
+  match.setInt("Gears Tele", 
+  
+  saveJSONArray(values, "data/data.json");
+  
+>>>>>>> origin/master
 }
 
 void keyPressed() {

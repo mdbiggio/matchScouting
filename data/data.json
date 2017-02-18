@@ -6,13 +6,21 @@
     "Scout Name": "Chris",
     "Team #": 399,
     "No show": "FALSE",
+<<<<<<< HEAD
     "Gears Tele": 13,
+=======
+    "Gears Tele": 1,
+>>>>>>> origin/master
     "Alliance": "Blue",
     "Ranking Points": 2,
     "Shot Efficiency ": 4,
     "Disabled": "FALSE",
     "Yellow Card ": "TRUE",
+<<<<<<< HEAD
     "Gears Auto": 12,
+=======
+    "Gears Auto": 0,
+>>>>>>> origin/master
     "Gear Efficiency ": 0,
     "Notes": "",
     "Low Fuel Auto": 2,
