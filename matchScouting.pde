@@ -9,7 +9,7 @@ int x = 0;
 int t, m = 2, s;
 int interval = 150;
 int startTime;
-int currMatch;
+int TEAMNUM;
 String time;
 String sS = "30";
 boolean run = false;
@@ -17,13 +17,18 @@ boolean matchEnded;
 
 int page = 1;
 
+JSONArray values;
+int scoutNum;
+
 textBox matchNotes;
 textBox teamNumber;
 textBox teamMember;
 textBox alliance;
 textButton end;
 textBox times;
+
 textButton startMatchButton;
+textButton loadMatchButton;
 
 counter matchNumber;
 counter Points;
@@ -46,6 +51,7 @@ checkBox potf;
 checkBox flippedOver;
 checkBox attemptedRope;
 checkBox successfulRope;
+checkBox noShow;
 
 textButtonGroup nameSelect;
 
@@ -91,6 +97,8 @@ void setup () {
   times = new textBox(1600, 10, 200, 60, 200, 200, 200, 0, 0, 0, "Time: ", false, false, false);
   startMatchButton = new textButton(1600, 80, 200, 60, 200, 200, 200, 0, 0, 0, "Start Match", false);
   
+  loadMatchButton = new textButton(390,1100,200,60,200,200,200,0,0,0,"Load Match", false);
+  
   gearsAuto = new counter(170, 220, 120, 40, 200, 200, 200, 0, 0, 0, 0, false);
   gearsTeleop = new counter(1070, 220, 120, 40, 200, 200, 200, 0, 0, 0, 0, false);
   
@@ -106,6 +114,7 @@ void setup () {
   flippedOver = new checkBox(600, 1050, 200, 200, 200, false);
   attemptedRope = new checkBox(1200, 870, 200, 200, 200, false);
   successfulRope = new checkBox(1200, 960, 200, 200, 200, false);
+  noShow = new  checkBox(1200, 1050, 200, 200, 200, false);
   
   //page 3
   Points = new counter(440, 240, 80, 20, 200, 200, 200, 0, 0, 0, 0, false); 
@@ -127,6 +136,10 @@ void mousePressed() {
       activeBox = "teamMember";
     }
     nameSelect.mousePressed();
+    loadMatchButton.mousePressed();
+    if (loadMatchButton.activated) {
+      loadJSON(matchNumber.start);
+    }
   } 
   if (page == 2) {
     gearsAuto.mousePressed();
@@ -136,15 +149,14 @@ void mousePressed() {
     fuelLowTeleop.mousePressed();
     fuelHighTeleop.mousePressed();
     
-    Points.mousePressed();
+    
     disabled.mousePressed();
-    rankingPoints.mousePressed();
-    rating.mousePressed();
     potf.mousePressed();
     flippedOver.mousePressed();
     attemptedRope.mousePressed();
     successfulRope.mousePressed();
     if (successfulRope.isChecked == true) {attemptedRope.isChecked = true;}
+    noShow.mousePressed();
     startMatchButton.mousePressed();
     if (startMatchButton.activated == true) {
       startMatchButton.updateColor(0, 0, 255);
@@ -160,6 +172,7 @@ void mousePressed() {
     }
     end.mousePressed();
     if(end.activated == true) {
+      i++;
       end.updateColor(30, 255, 30);
       //matchNotesOut = matchNotes.input;
       //dump.outputToFile();
@@ -169,29 +182,24 @@ void mousePressed() {
       pageSelect.boxes.get(2).isChecked = false;
       pageSelect.boxes.get(0).isChecked = true;
       pageSelect.checkedBox = 0;
+      saveJSON();
       matchNumber.start = matchNumber.start + 1;
+      loadJSON(matchNumber.start);
+      
+      
     }
     defenseRating.mousePressed();
     offenseRating.mousePressed();
-    
+    rankingPoints.mousePressed();
+    rating.mousePressed();
+    Points.mousePressed();
   }
-  
-  alliance.mousePressed();
-  if (alliance.activated == true) {
-    println(alli);
-    if (alli == "blue") {
-      alli = "red";
-      alliance.updateColor(255,0,0);
-    } else {
-      alli = "blue";
-      alliance.updateColor(0,0,255);
-    }
-  }
-  
+   
   pageSelect.mousePressed();
   page = pageSelect.checkedBox+1;
   println(page);
 }
+
 
 void draw() {
   
@@ -214,6 +222,7 @@ void draw() {
     teamNumber.draw();
     teamMember.draw();
     nameSelect.draw();
+    loadMatchButton.draw();
     
   } else if (page == 2) {
 
@@ -238,7 +247,8 @@ void draw() {
     text("Flipped Over:", 395, 1100);
     text("Attempted Rope Climb:", 860, 920);
     text("Successful Rope Climb:", 850, 1010);
-   
+    text("No Show", 900, 1100);
+     
     timer();
     times.draw();
     times.start = "Time: "+m+":"+sS;
@@ -246,7 +256,7 @@ void draw() {
     
     fuelLowAuto.draw();
     fuelHighAuto.draw();
-    fuelLowTeleop.draw();
+    fuelLowTeleop.draw();  
     fuelHighTeleop.draw();
     
     gearsAuto.draw();
@@ -257,7 +267,7 @@ void draw() {
     flippedOver.draw();
     attemptedRope.draw();
     successfulRope.draw();
-    
+    noShow.draw();
     
     
   } else {
@@ -287,6 +297,71 @@ void draw() {
     text("1            2           3            4           5", 350, 995);
     
   }
+}
+
+void updateAlli() {
+  if (child.scout < 4) {alliance.updateColor(0,0,255);}
+  if (child.scout > 3) {alliance.updateColor(255,0,0);}
+}
+
+void loadJSON(int MATCH) {
+    values = loadJSONArray("data.json");
+    println("match: " + MATCH);
+    println("scout: " + child.scout);
+    
+    int i = (MATCH-1)*6;
+    i = i+child.scout;
+    i--;
+
+    JSONObject match = values.getJSONObject(i); 
+    
+    String tournament = match.getString("Tournament");
+    String alli = match.getString("Alliance");
+    
+    int MATCHNUM = match.getInt("Match #");
+    int TEAMNUM = match.getInt("Team #");
+    
+    String TEAMNUMs = str(TEAMNUM);
+    
+    println(i + ", " + alli + ", " + MATCHNUM + ", " + TEAMNUM + ", " + tournament);
+    println(alli);
+    updateAlli(); 
+    teamNumber.input = TEAMNUMs;
+    
+}
+
+void saveJSON() {
+  JSONArray values1;
+  values1 = loadJSONArray("dataOut.json");
+  println(values1);
+  int MATCH = matchNumber.start;
+  i = (MATCH-1)*6;
+  JSONObject match = new JSONObject();
+  
+  match.setInt("FactId", i);
+  match.setInt("Team #", int(teamNumber.input));
+  
+  match.setString("Scout Name", teamMember.input);
+  match.setInt("Gears Auto", gearsAuto.start);
+  match.setInt("Gears Tele", gearsTeleop.start);
+  match.setInt("Low Fuel Auto", fuelLowAuto.start);
+  match.setInt("High Fuel Auto", fuelHighAuto.start);
+  match.setInt("Low Fuel Tele", fuelLowTeleop.start);
+  match.setInt("High Fuel Tele", fuelHighTeleop.start);
+  
+  match.setBoolean("Disabled", disabled.isChecked);
+  match.setBoolean("Parts on the Field", potf.isChecked);
+  match.setBoolean("Flip", flippedOver.isChecked);
+  match.setBoolean("Rope Attempt", attemptedRope.isChecked);
+  match.setBoolean("Rope Climb", successfulRope.isChecked);
+  match.setBoolean("No Show", noShow.isChecked);
+  
+  match.setString("Notes", matchNotes.input);
+  
+  
+  
+  values1.append(match);
+  saveJSONArray(values1, "data/dataOut.json");
 }
 
 void keyPressed() {
